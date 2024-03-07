@@ -1,0 +1,12 @@
+[Unit]
+Description=Flask App for Network Configuration
+After=network.target
+
+[Service]
+User=pi
+WorkingDirectory=/home/morening/pi-pairing
+ExecStart=/usr/bin/env python3 pairing_ui.py
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

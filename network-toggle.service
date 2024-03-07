@@ -1,0 +1,12 @@
+[Unit]
+Description=Toggle Network Mode based on Connectivity and GPIO Input
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/home/morening/pi-pairing/togle_hotspot.sh
+Restart=on-failure
+User=morening
+
+[Install]
+WantedBy=multi-user.target
