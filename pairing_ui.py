@@ -25,12 +25,15 @@ def set_wifi(ssid, password):
 
 def get_available_ssids():
     try:
-        result = subprocess.check_output(['nmcli', '-t', '-f', 'SSID', 'dev', 'wifi', 'list'], text=True)
+        # Ensure 'text=True' for string output and include error capture
+        result = subprocess.check_output(['nmcli', '-t', '-f', 'SSID', 'dev', 'wifi', 'list'], text=True, stderr=subprocess.STDOUT)
         ssids = result.strip().split('\n')
-        # Remove duplicates and empty SSID (hidden networks)
+        
+        # Filter out duplicates and empty lines
         ssids = list(filter(None, set(ssids)))
         return ssids
-    except subprocess.CalledProcessError:
+    except subprocess.CalledProcessError as e:
+        print(f"Error fetching SSIDs: {e.output}")
         return []
 
 @app.route('/', methods=['GET', 'POST'])
@@ -42,7 +45,7 @@ def home():
         return 'WiFi settings updated. Trying to connect...'
     
     ssids = get_available_ssids()
-    
+    print(ssids)
     # Form with SSID dropdown
     ssid_options = ''.join(f'<option value="{ssid}">{ssid}</option>' for ssid in ssids)
     return render_template_string('''
