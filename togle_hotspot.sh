@@ -46,13 +46,13 @@ while true; do
             if [ "$gpio_status" -eq "1" ]; then
                 echo "Switching to hotspot mode..."
                 nmcli con up "$hotspot_connection_name"
-                systemctl start network-toggle.service
+                systemctl start pairing_ui.service
             fi
         fi
     else
         echo "Switching to hotspot mode due to no internet..."
         nmcli con up "$hotspot_connection_name"
-        systemctl start network-toggle.service
+        systemctl start pairing_ui.service
     fi
 
     sleep 30 # Check every 30 seconds
