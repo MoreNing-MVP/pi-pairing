@@ -80,7 +80,7 @@ def home():
             label {
                 font-weight: bold;
             }
-            select, input[type="password"], input[type="submit"], input[type="button"] {
+            select, input[type="password"], input[type="submit"], input[type="button"], input[type="ssid"] {
                 width: 100%;
                 padding: 10px;
                 margin: 8px 0;
