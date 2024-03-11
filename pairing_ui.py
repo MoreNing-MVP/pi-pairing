@@ -104,9 +104,7 @@ def home():
         <h2>Connect to WiFi</h2>
         <form method="post">
             <label for="ssid">SSID:</label>
-            <select name="ssid" id="ssid">
-                {{ssid_options}}
-            </select><br>
+            <input type="text" id="ssid" name="ssid" required><br>
             <label for="password">Password:</label>
             <input type="password" id="password" name="password"><br>
             <input type="submit" value="Submit">
