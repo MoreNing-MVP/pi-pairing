@@ -31,6 +31,15 @@ check_gpio_pin() {
 
 }
 
+switch_to_AP() {
+    if ! nmcli -t -f GENERAL.STATE connection show MoreNing | grep -q "activated"; then
+        echo "MoreNing is down, switching to AP..."
+        switch_to_AP
+    else
+        echo "MoreNing is up, no action required."
+    fi
+}
+
 # Main loop
 while true; do
     check_internet
@@ -45,14 +54,12 @@ while true; do
             gpio_status=$(check_gpio_pin)
             if [ "$gpio_status" -eq "1" ]; then
                 echo "Switching to hotspot mode..."
-                nmcli con up "$hotspot_connection_name"
-                systemctl start pairing_ui.service
+                switch_to_AP
             fi
         fi
     else
         echo "Switching to hotspot mode due to no internet..."
-        nmcli con up "$hotspot_connection_name"
-        systemctl start pairing_ui.service
+        switch_to_AP
     fi
 
     sleep 30 # Check every 30 seconds
