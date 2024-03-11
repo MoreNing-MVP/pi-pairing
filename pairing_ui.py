@@ -23,6 +23,16 @@ def set_wifi(ssid, password):
     # Start a background thread to check for internet connectivity after setting Wi-Fi
     threading.Thread(target=check_internet_connection).start()
 
+def get_available_ssids():
+    try:
+        result = subprocess.check_output(['nmcli', '-t', '-f', 'SSID', 'dev', 'wifi', 'list'], text=True)
+        ssids = result.strip().split('\n')
+        # Remove duplicates and empty SSID (hidden networks)
+        ssids = list(filter(None, set(ssids)))
+        return ssids
+    except subprocess.CalledProcessError:
+        return []
+
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
@@ -31,14 +41,19 @@ def home():
         set_wifi(ssid, password)
         return 'WiFi settings updated. Trying to connect...'
     
-    # Form for user input
+    ssids = get_available_ssids()
+    
+    # Form with SSID dropdown
+    ssid_options = ''.join(f'<option value="{ssid}">{ssid}</option>' for ssid in ssids)
     return render_template_string('''
                                   <form method="post">
-                                      SSID: <input type="text" name="ssid"><br>
+                                      SSID: <select name="ssid">
+                                        {{ssid_options}}
+                                        </select><br>
                                       Password: <input type="password" name="password"><br>
                                       <input type="submit" value="Submit">
                                   </form>
-                                  ''')
+                                  ''', ssid_options=ssid_options)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
