@@ -3,6 +3,13 @@ import subprocess
 import threading
 import time
 import os
+import logging
+from flask import Flask, request, render_template_string
+import subprocess
+
+# Configure logging
+logging.basicConfig(level=logging.DEBUG, filename='app.log', filemode='w',
+                    format='%(name)s - %(levelname)s - %(message)s')
 
 app = Flask(__name__)
 
@@ -27,13 +34,16 @@ def get_available_ssids():
     try:
         # Ensure 'text=True' for string output and include error capture
         result = subprocess.check_output(['nmcli', '-t', '-f', 'SSID', 'dev', 'wifi', 'list'], text=True, stderr=subprocess.STDOUT)
+        logging.info("Raw command output: %s", result)  # Log raw output for debugging
+
         ssids = result.strip().split('\n')
-        
-        # Filter out duplicates and empty lines
+        logging.info("SSIDs after split: %s", ssids)
+
         ssids = list(filter(None, set(ssids)))
+        logging.info("SSIDs after filter and set: %s", ssids)
         return ssids
     except subprocess.CalledProcessError as e:
-        print(f"Error fetching SSIDs: {e.output}")
+        logging.error(f"Error fetching SSIDs: {e.output}")
         return []
 
 @app.route('/', methods=['GET', 'POST'])
