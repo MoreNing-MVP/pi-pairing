@@ -4,7 +4,7 @@ import subprocess
 app = Flask(__name__)
 
 def set_wifi(ssid, password):
-    subprocess.call(['nmcli', 'dev', 'wifi', 'connect', ssid, 'password', password])
+    subprocess.call(['sudo', 'nmcli', 'dev', 'wifi', 'connect', ssid, 'password', password])
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -24,4 +24,4 @@ def home():
                                   ''')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=80)
