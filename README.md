@@ -1,17 +1,15 @@
 # pi-pairing
 
-## creating systemctl services
-- `sudo nano /etc/systemd/system/pairing_ui.service`
-- `sudo nano /etc/systemd/system/network-toggle.service`
-- sudo systemctl daemon-reload
-- sudo systemctl enable pairing_ui.service
-- sudo systemctl start pairing_ui.service
-- sudo systemctl enable network-toggle.service
-- sudo systemctl start network-toggle.service
+## Installation
+### pre configuration
+- clone the project
+- replace .service `user` field with your device user name
+- replace the paths to the cloned project dir
+  
+### Define your WiFi SSID and Password
+SSID="my-hotspot"
+PASSWORD="my-password"
+chmod +x installtion_script.sh
+sudo ./installtion_script.sh
 
-## create access point
-- `nmcli con add type wifi ifname wlan0 con-name my-hotspot autoconnect yes ssid my-hotspot`
-- `nmcli con modify my-hotspot 802-11-wireless.mode ap 802-11-wireless.band bg ipv4.method shared`
-- `nmcli con modify my-hotspot wifi-sec.key-mgmt wpa-psk`
-- `nmcli con modify my-hotspot wifi-sec.psk my-password`
-- 
+# The pairing mode will start automatically when no internet connection available or when button connected to pin number 17 is pressed for 10sec and more
