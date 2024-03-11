@@ -34,8 +34,8 @@ check_gpio_pin() {
 switch_to_AP() {
     if ! nmcli -t -f GENERAL.STATE connection show MoreNing | grep -q "activated"; then
         echo "AP is down, switching to AP..."
-        nmcli con up "$hotspot_connection_name"
-        systemctl start pairing_ui.service
+        sudo nmcli con up "$hotspot_connection_name"
+        sudo systemctl start pairing_ui.service
     else
         echo "AP is up, no action required."
     fi
