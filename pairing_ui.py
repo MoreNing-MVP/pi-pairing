@@ -55,7 +55,7 @@ def home():
         return 'WiFi settings updated. Trying to connect...'
     
     ssids = get_available_ssids()
-    print(f'ssid:{ssids}')
+    logging.info(f'ssid:{ssids}')
     # Form with SSID dropdown
     ssid_options = ''.join(f'<option value="{ssid}">{ssid}</option>' for ssid in ssids)
     return render_template_string('''
