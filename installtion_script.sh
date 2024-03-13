@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Define your WiFi SSID and Password
-SSID="my-hotspot"
-PASSWORD="my-password"
+# SSID="my-hotspot"
+# PASSWORD="my-password"
 
 # Copy the service files to the systemd directory
 sudo cp pairing_ui.service /etc/systemd/system/
