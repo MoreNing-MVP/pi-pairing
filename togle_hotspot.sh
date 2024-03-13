@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Variables
-hotspot_connection_name="MoreNing"
+hotspot_connection_name="morening"
 GPIO_PIN=17  # Change to the actual GPIO pin number
 
 # Function to check internet connectivity
@@ -32,7 +32,7 @@ check_gpio_pin() {
 }
 
 switch_to_AP() {
-    if ! nmcli -t -f GENERAL.STATE connection show MoreNing | grep -q "activated"; then
+    if ! nmcli -t -f GENERAL.STATE connection show $hotspot_connection_name | grep -q "activated"; then
         echo "AP is down, switching to AP..."
         sudo nmcli con up "$hotspot_connection_name"
         sudo systemctl start pairing_ui.service
