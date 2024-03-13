@@ -11,5 +11,5 @@
 - export PASSWORD="my-password"
 - chmod +x installtion_script.sh
 - sudo ./installtion_script.sh
-
-# The pairing mode will start automatically when no internet connection available or when button connected to pin number 17 is pressed for 10sec and more
+### connect to the wifi you have just created and brows to 10.42.0.1:5000
+### The pairing mode will start automatically when no internet connection available or when button connected to pin number 17 is pressed for 10sec and more
