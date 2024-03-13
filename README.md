@@ -7,9 +7,9 @@
 - replace the paths to the cloned project dir
   
 ### Define your WiFi SSID and Password
-SSID="my-hotspot"
-PASSWORD="my-password"
-chmod +x installtion_script.sh
-sudo ./installtion_script.sh
+- SSID="my-hotspot"
+- PASSWORD="my-password"
+- chmod +x installtion_script.sh
+- sudo ./installtion_script.sh
 
 # The pairing mode will start automatically when no internet connection available or when button connected to pin number 17 is pressed for 10sec and more
