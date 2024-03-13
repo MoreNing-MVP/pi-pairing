@@ -7,8 +7,8 @@
 - replace the paths to the cloned project dir
   
 ### Define your WiFi SSID and Password
-- SSID="my-hotspot"
-- PASSWORD="my-password"
+- export SSID="my-hotspot"
+- export PASSWORD="my-password"
 - chmod +x installtion_script.sh
 - sudo ./installtion_script.sh
 
