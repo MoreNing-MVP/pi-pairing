@@ -7,6 +7,7 @@
 echo "Copy the service files to the systemd directory"
 sudo cp pairing_ui.service /etc/systemd/system/
 sudo cp network-toggle.service /etc/systemd/system/
+sudo chmod +x togle_hotspot.sh
 
 echo "Reload systemd to recognize the new services"
 sudo systemctl daemon-reload
