@@ -19,6 +19,7 @@ def check_internet_connection():
         # Attempt to ping Google's DNS server to check for internet connectivity
         subprocess.check_call(['ping', '-c', '1', '8.8.8.8'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         print("Internet connection established. Shutting down Flask app.")
+        subprocess.run("sudo systemctl restart morening.service", shell=True, check=True)
         # Use os._exit(0) to terminate the entire process
         os._exit(0)
     except subprocess.CalledProcessError:
@@ -26,7 +27,7 @@ def check_internet_connection():
 
 def set_wifi(ssid, password):
     nmcli device wifi rescan
-    subprocess.run("nmcli device wifi rescan", shell=True, check=True)
+    subprocess.run("sudo nmcli device wifi rescan", shell=True, check=True)
     command = f"sudo nmcli dev wifi connect '{ssid}' password '{password}'"
     subprocess.run(command, shell=True, check=True)
     # Start a background thread to check for internet connectivity after setting Wi-Fi
