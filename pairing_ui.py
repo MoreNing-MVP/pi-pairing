@@ -26,8 +26,8 @@ def check_internet_connection():
         print("No internet connection detected after 30 seconds.")
 
 def set_wifi(ssid, password):
-    nmcli device wifi rescan
     subprocess.run("sudo nmcli device wifi rescan", shell=True, check=True)
+    time.sleep(5)
     command = f"sudo nmcli dev wifi connect '{ssid}' password '{password}'"
     subprocess.run(command, shell=True, check=True)
     # Start a background thread to check for internet connectivity after setting Wi-Fi
