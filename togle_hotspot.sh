@@ -47,8 +47,8 @@ while true; do
     check_internet
     internet_connected=$?
 
-    # Check GPIO pin if internet is connected
     if [ $internet_connected -eq 1 ]; then
+        # Internet is connected, check GPIO pin
         gpio_status=$(check_gpio_pin)
         if [ "$gpio_status" -eq "1" ]; then
             echo "Waiting for 15 seconds to check pin status again..."
@@ -60,9 +60,20 @@ while true; do
             fi
         fi
     else
-        echo "Switching to hotspot mode due to no internet..."
-        switch_to_AP
+        # Internet is not connected, wait for 15 seconds before checking again
+        echo "Internet connection lost, waiting for 15 seconds before double checking..."
+        sleep 15
+        # Double check internet connectivity
+        check_internet
+        internet_connected=$?
+        if [ $internet_connected -ne 1 ]; then
+            echo "Switching to hotspot mode due to no internet..."
+            switch_to_AP
+        else
+            echo "Internet connection restored."
+        fi
     fi
 
     sleep 30 # Check every 30 seconds
 done
+
