@@ -6,7 +6,6 @@ GPIO_PIN=17  # Change to the actual GPIO pin number
 
 # Function to check internet connectivity
 check_internet() {
-    sleep 45
     ping -c 4 8.8.8.8 > /dev/null 2>&1
     if [ $? -eq 0 ]; then
         echo "Internet is connected."
@@ -37,6 +36,7 @@ switch_to_AP() {
         echo "AP is down, switching to AP..."
         sudo nmcli con up "$hotspot_connection_name"
         sudo systemctl start pairing_ui.service
+        sleep 30
     else
         echo "AP is up, no action required."
     fi
