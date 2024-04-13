@@ -35,6 +35,7 @@ def set_wifi(ssid, password):
 
 @app.route('/available_ssids', methods=['GET'])
 def avilable_ssids_route():
+    logging.info("get request for ssids")
     ssids = get_available_ssids()
     return jsonify({
             'success':  len(ssids) != 0,
@@ -59,6 +60,7 @@ def get_available_ssids():
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
+    logging.info(f"request for root, method: {request.method}")
     if request.method == 'POST':
         ssid = request.form['ssid']
         password = request.form['password']
