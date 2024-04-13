@@ -37,8 +37,9 @@ def set_wifi(ssid, password):
 def avilable_ssids_route():
     logging.info("get request for ssids")
     ssids = get_available_ssids()
-    return jsonify({
-            'success':  len(ssids) != 0,
+    status = len(ssids) != 0
+    return ({
+            'success':  status,
             'ssids': ssids
         })
 
@@ -66,7 +67,7 @@ def home():
         password = request.form['password']
         set_wifi(ssid, password)
         device_id  = 'noam'
-        return jsonify({
+        return ({
             'message': 'WiFi settings updated. Trying to connect...',
             'device_id': device_id
         })
