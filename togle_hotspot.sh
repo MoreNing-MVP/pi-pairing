@@ -68,7 +68,7 @@ while true; do
         internet_connected=$?
         if [ $internet_connected -ne 1 ]; then
             echo "Switching to hotspot mode due to no internet..."
-            switch_to_AP
+            # switch_to_AP
         else
             echo "Internet connection restored."
         fi
