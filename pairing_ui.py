@@ -33,6 +33,14 @@ def set_wifi(ssid, password):
     # Start a background thread to check for internet connectivity after setting Wi-Fi
     threading.Thread(target=check_internet_connection).start()
 
+@app.route('/available_ssids', methods=['GET'])
+def avilable_ssids_route():
+    ssids = get_available_ssids()
+    return jsonify({
+            'success': len(ssids) is not 0,
+            'ssids': ssids
+        })
+
 def get_available_ssids():
     try:
         # Ensure 'text=True' for string output and include error capture
@@ -55,7 +63,11 @@ def home():
         ssid = request.form['ssid']
         password = request.form['password']
         set_wifi(ssid, password)
-        return 'WiFi settings updated. Trying to connect...'
+        device_id  = 'noam'
+        return jsonify({
+            'message': 'WiFi settings updated. Trying to connect...',
+            'device_id': device_id
+        })
     
     ssids = get_available_ssids()
     logging.info(f'ssid:{ssids}')
