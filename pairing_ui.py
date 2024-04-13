@@ -37,7 +37,7 @@ def set_wifi(ssid, password):
 def avilable_ssids_route():
     ssids = get_available_ssids()
     return jsonify({
-            'success': len(ssids) is not 0,
+            'success':  len(ssids) != 0,
             'ssids': ssids
         })
 
